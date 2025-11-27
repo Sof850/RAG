@@ -103,10 +103,10 @@ def main():
         print("-" * 60)
         
        # Optional: Show sources
-        #print(f"\nSources used:")
-        #for i, doc in enumerate(results, 1):
-        #    print(f"[{i}] {doc.page_content[:100]}...")
-        #print("-" * 60)
+        print(f"\nSources used:")
+        for i, doc in enumerate(results, 1):
+            print(f"[{i}] {doc.page_content[:100]}...")
+        print("-" * 60)
 
 if __name__ == "__main__":
     main()
