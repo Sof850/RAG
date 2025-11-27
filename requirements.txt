@@ -1,0 +1,10 @@
+fastapi
+uvicorn
+python-dotenv
+langchain-huggingface
+langchain-chroma
+langchain-community
+langchain-text-splitters
+transformers
+torch
+pydantic
