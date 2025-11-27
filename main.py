@@ -8,6 +8,8 @@ import os
 import torch
 from contextlib import asynccontextmanager
 
+from data_cutter import create_db
+
 # Load environment variables
 load_dotenv()
 
@@ -22,18 +24,17 @@ async def lifespan(app: FastAPI):
     # Startup: Load resources
     print("🚀 Starting up... Loading RAG resources...")
     
-    if not os.path.exists(CHROMA_PATH):
-        print(f"❌ Database not found at {CHROMA_PATH}")
-        # In a real app, we might want to raise an error or handle this gracefully
-        rag_resources["error"] = "Database not found. Please run data_cutter.py first."
-    else:
-        print(f"📂 Loading ChromaDB from {CHROMA_PATH}...")
-        embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
-        rag_resources["vectorstore"] = Chroma(
-            persist_directory=CHROMA_PATH,
-            embedding_function=embeddings
-        )
-
+    # Initialize/Load database using data_cutter
+    print("🔄 Initializing database using data_cutter...")
+    try:
+        rag_resources["vectorstore"] = create_db()
+    except Exception as e:
+        print(f"❌ Error creating database: {e}")
+        rag_resources["error"] = f"Error creating database: {str(e)}"
+        # If create_db fails, we might still want to try loading if it exists, 
+        # but for now let's assume it's critical.
+    
+    if "vectorstore" in rag_resources:
         print(f"🤖 Loading AI Model ({MODEL_ID})...")
         try:
             tokenizer = AutoTokenizer.from_pretrained(MODEL_ID)
