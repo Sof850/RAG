@@ -4,7 +4,7 @@ This project loads documents, splits them into chunks, and creates a ChromaDB ve
 
 ## Setup
 
-1. **Install dependencies** (already done):
+1. **Install dependencies**:
    ```bash
    source .venv/bin/activate
    pip install langchain-community langchain-text-splitters langchain-huggingface langchain-chroma chromadb python-dotenv sentence-transformers
@@ -62,7 +62,6 @@ This shows you:
 - `inspect_db.py` - Database inspection tool
 - `data/` - Directory containing your text documents
 - `chroma_db/` - ChromaDB vector store (created after running data_cutter.py)
-- `.env` - Environment variables (contains your API key - DO NOT COMMIT!)
 
 ## Database Location
 
