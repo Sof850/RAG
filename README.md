@@ -67,7 +67,7 @@ This shows you:
 
 The ChromaDB database is stored locally at:
 ```
-/home/user/Documents/RAG/chroma_db/
+/RAG/chroma_db/
 ```
 
 It's a directory containing:
